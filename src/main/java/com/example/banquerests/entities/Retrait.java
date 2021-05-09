@@ -5,5 +5,5 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("R")
-public class Retrait extends Operation{
+public class Retrait extends Operation {
 }
