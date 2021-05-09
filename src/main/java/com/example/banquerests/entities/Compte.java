@@ -1,5 +1,6 @@
 package com.example.banquerests.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,11 @@ public abstract class Compte implements Serializable
     private Employe employe;
     @OneToMany(mappedBy = "compte")
     private Collection<Operation> operations;
+
+    @JsonIgnore
+    public Collection<Operation> getOperations() {
+        return operations;
+    }
 
     public Compte(String codeCompte, Date dateCreation, double solde) {
         this.codeCompte = codeCompte;
