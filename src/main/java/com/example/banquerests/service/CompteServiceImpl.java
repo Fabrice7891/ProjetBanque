@@ -35,9 +35,11 @@ public class CompteServiceImpl implements CompteService {
 
     @Override
     public Collection<Compte> getCompteClient(Long codeClient) {
+        //Cherche le client en question
         Client clt=clientRepository.findByCodeClient(codeClient);
         if(clt==null) throw new RuntimeException("Client intruvable");
-        if(clt.getComptes().size()==0) throw new RuntimeException("Ce client ne possede aucun compte");
-        return clt.getComptes();
+        //Verifie si le client possede des compte
+        //if(clt.getComptes().size()==0) throw new RuntimeException("Ce client ne possede aucun compte");
+        return clt.getComptes(); // retourne la liste des compte du client
     }
 }

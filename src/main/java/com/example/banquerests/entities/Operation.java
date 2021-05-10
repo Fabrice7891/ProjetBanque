@@ -13,9 +13,16 @@ import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(length = 1)
+@DiscriminatorColumn(name = "TYPE_OP" , discriminatorType = DiscriminatorType.STRING, length = 4)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME ,include = JsonTypeInfo.As.PROPERTY,property = "type_op")
+@JsonSubTypes(
+        {
+                @JsonSubTypes.Type(name = "V(+)", value = Versement.class),
+                @JsonSubTypes.Type(name = "R(-)", value = Retrait.class)
+        }
+)
 @Data @AllArgsConstructor @NoArgsConstructor @ToString
-public class Operation implements Serializable {
+public abstract class Operation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numeroOperation;

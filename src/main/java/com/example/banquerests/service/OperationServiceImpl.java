@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,13 @@ public class OperationServiceImpl implements OperationService {
         retirer(cpte1, montant, codeEmp);
         verser(cpte2, montant, codeEmp);
         return true;
+    }
+
+    @Override
+    public Collection<Operation> getOperationOnCompte(String codeCpte) {
+        Compte cpt= compteRepository.findByCodeCompte(codeCpte);
+        if(cpt==null) throw  new RuntimeException("Compte introuvable");
+        return cpt.getOperations();
     }
 
     @Override
